@@ -3,12 +3,15 @@ unit Vcl.TCustomEditHelper;
 interface
 
 uses
-  Vcl.StdCtrls, Vcl.Mask;
+  Vcl.StdCtrls, Vcl.Mask, System.SysUtils;
 
 type
   TCustomEditHelper = class helper for TCustomEdit
-  public
-    class var OldValue: String;
+  private
+    function GetOldValue: String;
+    procedure SetOldValue(const Value: String);
+  published
+    property OldValue: String read GetOldValue write SetOldValue;
   end;
 
   TEdit = class(Vcl.StdCtrls.TEdit)
@@ -22,6 +25,20 @@ type
   end;
 
 implementation
+
+{ TCustomEditHelper }
+function TCustomEditHelper.GetOldValue: String;
+begin
+  Result := PChar(Self.Tag);
+end;
+
+procedure TCustomEditHelper.SetOldValue(const Value: String);
+var
+  FText: PChar;
+begin
+  Ftext := PChar(Value);
+  Self.Tag := Integer(FText);
+end;
 
 { TEdit }
 procedure TEdit.DoEnter;
