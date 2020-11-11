@@ -6,19 +6,22 @@ uses
   Vcl.StdCtrls, Vcl.Mask;
 
 type
-  TCustomEditHelper = class helper for TCustomEdit
-  public
-    class var OldValue: String;
-  end;
-
   TEdit = class(Vcl.StdCtrls.TEdit)
+  private
+    FOldValue: String;
   protected
     procedure DoEnter; override;
+  published
+    property OldValue: String read FOldValue write FOldValue;
   end;
 
   TMaskEdit = class(Vcl.Mask.TMaskEdit)
+  private
+    FOldValue: String;
   protected
     procedure DoEnter; override;
+  published
+    property OldValue: String read FOldValue write FOldValue;
   end;
 
 implementation
