@@ -3,28 +3,60 @@ unit Vcl.TCustomEditHelper;
 interface
 
 uses
-  Vcl.StdCtrls, Vcl.Mask;
+  Winapi.Windows, Classes, Vcl.StdCtrls, Vcl.Mask;
+
+const
+  ECM_FIRST = $1500;
+  EM_SETCUEBANNER = ECM_FIRST + 1;
+  EM_GETCUEBANNER = ECM_FIRST + 2;
 
 type
-  TEdit = class(Vcl.StdCtrls.TEdit)
+  TCustomEditHelper = class helper for TCustomEdit
   private
-    FOldValue: String;
+    function GetOldValue: String;
+    procedure SetOldValue(InVal: String);
+  published
+    property OldValue: String read GetOldValue write SetOldValue;
+  end;
+
+  TEdit = class(Vcl.StdCtrls.TEdit)
   protected
     procedure DoEnter; override;
-  published
-    property OldValue: String read FOldValue write FOldValue;
   end;
 
   TMaskEdit = class(Vcl.Mask.TMaskEdit)
-  private
-    FOldValue: String;
   protected
     procedure DoEnter; override;
-  published
-    property OldValue: String read FOldValue write FOldValue;
   end;
 
 implementation
+
+{ TCustomEditHelper }
+
+function TCustomEditHelper.GetOldValue: String;
+const
+  Buf_Size = 512;
+var
+  w: PWideChar;
+begin
+  result := '';
+  w := AllocMem(Buf_Size);
+  try
+    SendMessage(Self.handle, EM_GETCUEBANNER, WParam(w), LParam(Buf_Size));
+    result := WideCharToString(w);
+  finally
+    FreeMem(w);
+  end;
+end;
+
+procedure TCustomEditHelper.SetOldValue(InVal: String);
+var
+  w: WideString;
+begin
+  w := InVal;
+  SendMessage(Self.handle, EM_SETCUEBANNER, 1, LParam(PWideChar(w)));
+  Self.Refresh;
+end;
 
 { TEdit }
 procedure TEdit.DoEnter;
