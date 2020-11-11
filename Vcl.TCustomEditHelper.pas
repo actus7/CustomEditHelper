@@ -3,7 +3,7 @@ unit Vcl.TCustomEditHelper;
 interface
 
 uses
-  Winapi.Windows, Classes, Vcl.StdCtrls, Vcl.Mask;
+  Winapi.Windows, Vcl.StdCtrls, Vcl.Mask;
 
 const
   ECM_FIRST = $1500;
