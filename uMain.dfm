@@ -19,16 +19,52 @@ object Form2: TForm2
     Width = 121
     Height = 21
     TabOrder = 0
-    Text = 'edtNormal'
+    Text = '123'
     OnExit = edtNormalExit
   end
   object edtMask: TMaskEdit
-    Left = 312
-    Top = 32
+    Left = 88
+    Top = 59
     Width = 121
     Height = 21
     TabOrder = 1
     Text = 'edtMask'
     OnExit = edtMaskExit
+  end
+  object Edit1: TEdit
+    Left = 88
+    Top = 86
+    Width = 121
+    Height = 21
+    TabOrder = 2
+    Text = 'ABC'
+    OnExit = edtNormalExit
+  end
+  object Edit2: TEdit
+    Left = 88
+    Top = 113
+    Width = 121
+    Height = 21
+    TabOrder = 3
+    Text = '1A2B'
+    OnExit = edtNormalExit
+  end
+  object Edit3: TEdit
+    Left = 88
+    Top = 140
+    Width = 121
+    Height = 21
+    TabOrder = 4
+    Text = '3c4d'
+    OnExit = edtNormalExit
+  end
+  object btnReset: TButton
+    Left = 208
+    Top = 176
+    Width = 75
+    Height = 25
+    Caption = 'Reset Values'
+    TabOrder = 5
+    OnClick = btnResetClick
   end
 end

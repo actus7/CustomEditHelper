@@ -10,8 +10,13 @@ type
   TForm2 = class(TForm)
     edtNormal: TEdit;
     edtMask: TMaskEdit;
+    Edit1: TEdit;
+    Edit2: TEdit;
+    Edit3: TEdit;
+    btnReset: TButton;
     procedure edtNormalExit(Sender: TObject);
     procedure edtMaskExit(Sender: TObject);
+    procedure btnResetClick(Sender: TObject);
   private
     { Private declarations }
   public
@@ -31,11 +36,21 @@ begin
     ShowMessage('É diferente');
 end;
 
+procedure TForm2.btnResetClick(Sender: TObject);
+var
+  I: Integer;
+begin
+  for I := 0 to Form2.ComponentCount - 1 do
+  begin
+    if Form2.Components[I] is TCustomEdit then
+      TCustomEdit(Form2.Components[I]).Text := TCustomEdit(Form2.Components[I]).OldValue;
+  end;
+end;
+
 procedure TForm2.edtMaskExit(Sender: TObject);
 begin
   if edtMask.Text <> edtMask.OldValue then
     ShowMessage('É diferente');
 end;
-
 
 end.
